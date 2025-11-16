@@ -2,6 +2,10 @@
 chroma_db/
 *.chroma
 *.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
 
 # Python
 __pycache__/
@@ -43,6 +47,9 @@ venv.bak/
 *.swo
 *~
 .DS_Store
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -61,4 +68,17 @@ htmlcov/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Project specific
+*.log
+*.tmp
+*.bak
+*.backup
+
+# OS files (additional)
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 
