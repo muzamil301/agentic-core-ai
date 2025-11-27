@@ -1,30 +1,40 @@
-# Embeddings Project
+# Embeddings & RAG Monorepo
 
-A Python project for generating embeddings from text data and storing them in ChromaDB for semantic search and retrieval.
+A complete monorepo for embeddings management and RAG (Retrieval Augmented Generation) applications using ChromaDB and LangGraph.
 
 ## Overview
 
-This project provides a complete solution for:
-- Generating embeddings using Ollama API
-- Storing embeddings in ChromaDB
-- Performing CRUD operations on embeddings
-- Semantic search and retrieval
+This monorepo provides:
+- **Embeddings Management**: Complete CRUD operations for embeddings in ChromaDB
+- **RAG Service**: LangGraph-powered RAG service for chat applications
+- **Shared Infrastructure**: Common database services and utilities
 
-## Project Structure
+## Monorepo Structure
 
 ```
 embeddings-py/
-├── db/                          # Database layer
-│   ├── __init__.py
-│   └── chromadb_service.py      # ChromaDB service with CRUD operations
-├── mock-data/                   # Data files
+├── embeddings-management/       # 📁 Embeddings CRUD operations
+│   ├── scripts/                 # Production scripts
+│   ├── examples/                # Learning examples
+│   ├── tests/                   # Unit tests
+│   └── README.md                # Embeddings management docs
+│
+├── langgraph/                   # 🤖 RAG service with LangGraph
+│   ├── config/                  # RAG configuration
+│   ├── rag/                     # RAG components
+│   ├── llm/                     # LLM integration
+│   ├── graph/                   # LangGraph definition
+│   ├── service/                 # Service layer
+│   ├── chat.py                  # CLI interface
+│   └── README.md                # RAG service docs
+│
+├── db/                          # 🗄️ Shared database layer
+│   └── chromadb_service.py      # ChromaDB service
+├── mock-data/                   # 📄 Sample data
 │   └── payment_support_data.json
-├── config.py                    # Configuration constants
-├── utils.py                     # Utility functions for embeddings
-├── payment_support_embeddings.py # Main script example
-├── get_embeddings.py            # Simple embedding test script
-├── requirements.txt             # Python dependencies
-└── README.md                    # This file
+├── config.py                    # 🔧 Shared configuration
+├── utils.py                     # 🛠️ Shared utilities
+└── requirements.txt             # 📦 Dependencies
 ```
 
 ## Prerequisites
@@ -54,38 +64,73 @@ pip install -r requirements.txt
 
 ## Quick Start
 
-### Generate and Store Embeddings from JSON
-
-Run the main script to process payment support data:
+### 1. Setup Embeddings (Knowledge Base)
 
 ```bash
-python payment_support_embeddings.py
+# Create embeddings from sample data
+python embeddings-management/scripts/payment_support_embeddings.py
+
+# Verify embeddings were created
+python embeddings-management/scripts/read_embeddings.py
 ```
 
-This will:
-1. Load data from `mock-data/payment_support_data.json`
-2. Generate embeddings using Ollama API
-3. Store embeddings in ChromaDB collection named "payment_support"
-
-### Test Embedding Generation
-
-Test the embedding generation with simple text:
+### 2. Use RAG Chat Service
 
 ```bash
-python get_embeddings.py
+# Interactive chat with RAG
+python langgraph/chat.py
+
+# Or run programmatic example
+python langgraph/example.py
 ```
 
-## Usage Guide
+## Components
 
-### 1. Basic Setup
+### 🗄️ Embeddings Management (`embeddings-management/`)
+Manages the knowledge base:
+- **Create**: Generate embeddings from data sources
+- **Read**: Query and inspect embeddings  
+- **Update**: Modify existing embeddings
+- **Delete**: Remove outdated embeddings
 
-```python
-from db.chromadb_service import ChromaDBService
-from utils import text_to_embeddings, json_to_embeddings
+```bash
+# Create embeddings
+python embeddings-management/scripts/payment_support_embeddings.py
 
-# Initialize service with a collection
-db_service = ChromaDBService(collection_name="my_collection")
+# Query embeddings
+python embeddings-management/scripts/read_embeddings.py
+
+# Delete embeddings
+python embeddings-management/scripts/delete_embeddings.py
 ```
+
+### 🤖 RAG Service (`langgraph/`)
+LangGraph-powered chat service with intelligent routing:
+- **Smart Routing**: Automatically decides RAG vs direct answers
+- **Web UI**: Modern Streamlit-based chat interface
+- **Query Classification**: Handles payments, greetings, general questions
+- **Conversation**: Multi-turn chat with history
+
+```bash
+# 🌐 Web UI (Recommended)
+python langgraph/run_ui.py
+
+# 💻 CLI chat interface
+python langgraph/chat.py
+
+# 🧠 Test intelligent routing
+python langgraph/example_routing.py
+
+# 📝 Programmatic usage
+from langgraph.service.rag_service import RAGService
+service = RAGService()
+result = service.chat("What is my daily transaction limit?")
+```
+
+### 🛠️ Shared Infrastructure
+- **Database**: `db/chromadb_service.py` - ChromaDB operations
+- **Utilities**: `utils.py` - Embedding generation
+- **Config**: `config.py` - Shared settings
 
 ## Troubleshooting
 
