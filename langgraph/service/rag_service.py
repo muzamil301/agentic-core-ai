@@ -6,7 +6,6 @@ It encapsulates the graph and provides simple methods for chat interactions.
 """
 
 from typing import List, Dict, Any, Optional
-from langgraph.graph.graph import RAGGraph
 
 
 class RAGService:
@@ -19,6 +18,10 @@ class RAGService:
     
     def __init__(self):
         """Initialize the RAG service with a graph instance."""
+        # Lazy import to avoid circular imports
+        from langgraph.graph import get_graph_classes
+        create_graph, RAGGraph = get_graph_classes()
+        
         self.graph = RAGGraph()
         self.conversation_history: List[Dict[str, str]] = []
     
@@ -88,6 +91,7 @@ class RAGService:
             conversation_history=self.conversation_history
         ):
             yield state_update
+
 
 
 

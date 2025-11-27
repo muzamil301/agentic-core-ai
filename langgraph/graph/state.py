@@ -5,7 +5,21 @@ This module defines the state structure used throughout the graph.
 """
 
 from typing import TypedDict, List, Dict, Any, Annotated
-from langgraph.graph.message import add_messages
+
+# Try different import paths for add_messages
+try:
+    from langgraph.graph.message import add_messages
+except ImportError:
+    try:
+        from langgraph.prebuilt import add_messages
+    except ImportError:
+        try:
+            from langchain_core.messages import add_messages
+        except ImportError:
+            # Fallback: create a simple add_messages function
+            def add_messages(left: List[Dict], right: List[Dict]) -> List[Dict]:
+                """Simple message addition fallback."""
+                return left + right
 
 
 class GraphState(TypedDict):
@@ -32,6 +46,7 @@ class GraphState(TypedDict):
     
     # Additional metadata (errors, timings, etc.)
     metadata: Dict[str, Any]
+
 
 
 

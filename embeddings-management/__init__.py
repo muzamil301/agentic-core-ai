@@ -10,3 +10,4 @@ This module provides tools and scripts for managing embeddings in ChromaDB:
 """
 
 __version__ = "0.1.0"
+

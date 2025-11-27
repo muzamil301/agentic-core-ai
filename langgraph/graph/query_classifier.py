@@ -154,3 +154,4 @@ class QueryClassifier:
             return True
         
         return False
+
