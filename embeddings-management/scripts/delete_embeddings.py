@@ -11,8 +11,7 @@ sys.path.insert(0, str(parent_dir))
 from db.chromadb_service import ChromaDBService
 
 # Configuration
-COLLECTION_NAME = "payment_support"
-
+COLLECTION_NAME = "customer_support_embeddings"
 
 def delete_by_ids(ids: list):
     """Delete specific embeddings by their IDs"""

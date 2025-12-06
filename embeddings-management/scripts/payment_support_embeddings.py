@@ -9,7 +9,7 @@ from db.chromadb_service import ChromaDBService
 from utils import json_to_embeddings, get_embedding_info
 
 # JSON file path (relative to project root)
-JSON_FILE_PATH = str(parent_dir / "mock-data" / "payment_support_data.json")
+JSON_FILE_PATH = str(parent_dir / "mock-data" / "customer_support_data.json")
 
 
 def main():
@@ -43,7 +43,7 @@ def main():
     
     # Store embeddings in ChromaDB using service
     print("\n💾 Storing embeddings in ChromaDB...")
-    db_service = ChromaDBService(collection_name="payment_support")
+    db_service = ChromaDBService(collection_name="customer_support_embeddings")
     created_ids = db_service.create(
         texts=texts,
         embeddings=embeddings,
